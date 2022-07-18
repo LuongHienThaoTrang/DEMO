@@ -1,0 +1,14 @@
+.color {
+  background-color: red;
+}
+
+.table-headers,
+.table-rows {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1.5fr;
+}
+
+.table-cell {
+  display: flex;
+  align-items: center;
+}/*# sourceMappingURL=admin.css.map */
