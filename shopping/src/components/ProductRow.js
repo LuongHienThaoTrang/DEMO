@@ -1,18 +1,19 @@
 
-function ProductRow({ id, name, price, image }) {
+function ProductRow({ product }) {
+    
     return (
         <div className="table-rows">
             <div className="table-cell">
-                {id}
+                {product.id}
             </div>
             <div className="table-cell">
-                {name}
+                {product.name}
             </div>
             <div className="table-cell">
-                {price}$
+                {product.price}$
             </div>
             <div className="table-cell">
-                <img src={image} width="50%" height="38px" alt=""/>
+                <img src={product.image} width="50%" height="38px" alt=""/>
             </div>
             <div className="table-cell">
                 <button className="btn">

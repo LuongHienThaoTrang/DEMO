@@ -1,57 +1,72 @@
+import React from "react"
 import ProductRow from "./ProductRow"
+import ContentHeader from "./ContentHeader"
+import Modal from './Modal';
 
-function MainContent() {
-    return (
-        <main>
-            <div className="content-header">
-                <h3>Products</h3>
-                <button>+ Add</button>
-            </div>
-            <div className="content-table">
-                <div className="table-headers">
-                    <div className="table-header">
-                        Id
+
+class MainContent extends React.Component {
+    state = {
+        open: false,
+        products: []
+    }
+
+    addProduct = (name, price, image) => {
+        const product = {
+            // id tự động tăng sau khi thêm product
+            id: this.state.products.length,
+            name,
+            price,
+            image
+        }
+        this.setState({
+            products: [...this.state.products, product]
+        })
+    }
+
+    toggleModal = () => {
+        this.setState({
+            open: !this.state.open
+        })
+    }
+
+    render() {
+        return (
+            <>
+            <main>
+                <ContentHeader onToggleModal={this.toggleModal} onAddProduct={this.addProduct} /> 
+                <div className="content-table">
+                    <div className="table-headers">
+                        <div className="table-header">
+                            Id
+                        </div>
+                        <div className="table-header">
+                            Name
+                        </div>
+                        <div className="table-header">
+                            Price
+                        </div>
+                        <div className="table-header">
+                            Image
+                        </div>
+                        <div className="table-header">
+                            Action
+                        </div>
                     </div>
-                    <div className="table-header">
-                        Name
-                    </div>
-                    <div className="table-header">
-                        Price
-                    </div>
-                    <div className="table-header">
-                        Image
-                    </div>
-                    <div className="table-header">
-                        Action
-                    </div>
+                    {this.state.products.length > 0 ? 
+                        this.state.products.map((product, index) => (
+                            <ProductRow 
+                                key={index}
+                                product={product}
+                            />
+                        ))
+                        : <h3>EMPTY</h3>
+                    }
                 </div>
-                <ProductRow 
-                    id="1"
-                    name="Product 1"
-                    price="200"
-                    image="https://files.fullstack.edu.vn/f8-prod/blog_posts/3524/62808ea3382fb.png"
-                />
-                <ProductRow 
-                    id="2"
-                    name="Product 2"
-                    price="400"
-                    image="https://files.fullstack.edu.vn/f8-prod/blog_posts/3524/62808ea3382fb.png"
-                />
-                <ProductRow 
-                    id="3"
-                    name="Product 3"
-                    price="600"
-                    image="https://files.fullstack.edu.vn/f8-prod/blog_posts/3524/62808ea3382fb.png"
-                />
-                <ProductRow 
-                    id="4"
-                    name="Product 4"
-                    price="800"
-                    image="https://files.fullstack.edu.vn/f8-prod/blog_posts/3524/62808ea3382fb.png"
-                />
-            </div>
-        </main>
-    )
+            </main>
+            {this.state.open ? <Modal onToggleModal={this.toggleModal} onAddProduct={this.addProduct} /> : ''}
+            </>
+        )
+    }
 }
 
 export default MainContent

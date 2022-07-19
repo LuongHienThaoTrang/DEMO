@@ -1,9 +1,11 @@
+import BarIcon from "./assets/icons/bars-solid"
 
 function Navbar({ onToggleSidebar }) {
     return (
         <div className="navbar">
+            NAVBAR
             <button onClick={onToggleSidebar}>
-                OPEN
+                <BarIcon />
             </button>
         </div>
     )

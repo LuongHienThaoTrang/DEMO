@@ -1,0 +1,101 @@
+.color {
+  background-color: red;
+}
+
+.table-headers,
+.table-rows {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr 1fr 1.5fr;
+}
+
+.table-cell {
+  display: flex;
+  align-items: center;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  width: 50%;
+  min-height: 50%;
+  background-color: white;
+  padding: 16px;
+}
+.modal-content .modal-close {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border: none;
+  background-color: white;
+  padding: 6px 8px;
+}
+.modal-content .modal-close:hover {
+  color: white;
+  background-color: rgb(120, 120, 120);
+}
+
+.sidebar {
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  height: 100%;
+  padding: 30px;
+  min-height: 100vh;
+  color: white;
+}
+
+.bg {
+  background-color: #173451;
+}
+
+.navbar {
+  box-shadow: 0 0 25px rgba(0, 0, 0, 0.16);
+  height: 40px;
+  padding: 0 12px;
+  margin: 0 -12px;
+}
+.navbar button {
+  background-color: white;
+  border: none;
+}
+.navbar button svg {
+  width: 20px;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+.content-header .primary-btn {
+  background-color: #173451;
+  color: white;
+}
+.content-header .primary-btn:hover {
+  background-color: #224e79;
+}
+
+.table-headers {
+  text-transform: uppercase;
+  font-weight: 600;
+  border-bottom: 1px solid #d2d2d2;
+  padding: 20px 0;
+}
+
+.table-rows {
+  border-bottom: 1px solid #d2d2d2;
+  padding: 20px 0;
+}/*# sourceMappingURL=admin.css.map */

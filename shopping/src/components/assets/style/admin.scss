@@ -1,0 +1,103 @@
+@import './variables';
+
+.color {
+    background-color: $primaryColor;
+}
+
+.table-headers,
+.table-rows {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr 1fr 1.5fr;
+}
+
+.table-cell {
+    display: flex;
+    align-items: center;
+}
+
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    height: $height;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-content {
+        width: 50%;
+        min-height: 50%;
+        background-color: $whiteColor;
+        padding: 16px;
+        .modal-close {
+            position: absolute;
+            top: 0px;
+            right: 0px;
+            border: none;
+            background-color: $whiteColor;
+            padding: 6px 8px;
+            &:hover {
+                color: $whiteColor;
+                background-color: rgb(120, 120, 120);
+            }
+        }
+    }
+}
+
+.sidebar {
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    height: 100%;
+    padding: 30px;
+    min-height: $height;
+    color: $whiteColor;
+}
+
+.bg {
+    background-color: $sideBarColor;
+}
+
+.navbar {
+    box-shadow: $shadowOne;
+    height: 40px;
+    padding: 0 12px;
+    margin: 0 -12px;
+    button {
+        background-color: $whiteColor;
+        border: none;
+        svg {
+            width: 20px;
+        }
+    }
+}
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    .primary-btn {
+        background-color: $sideBarColor;
+        color: $whiteColor;
+        &:hover {
+            background-color: lighten($sideBarColor, 10);
+        }
+    }
+}
+
+.table-headers {
+    text-transform: uppercase;
+    font-weight: 600;
+    border-bottom: 1px solid #d2d2d2;
+    padding: 20px 0;
+}
+
+.table-rows {
+    border-bottom: 1px solid #d2d2d2;
+    padding: 20px 0;
+}

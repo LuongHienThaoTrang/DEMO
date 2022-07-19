@@ -1,7 +1,7 @@
 
 function Sidebar() {
     return (
-        <div className="">
+        <div className="sidebar">
             Sidebar
         </div>
     )
