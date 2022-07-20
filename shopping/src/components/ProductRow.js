@@ -1,5 +1,13 @@
 
-function ProductRow({ product }) {
+function ProductRow({ product, onDeleteProduct, onUpdateIsEditting }) {
+
+    const handleDelete = () => {
+        onDeleteProduct(product.id)
+    }
+
+    const handleEdit = () => {
+        onUpdateIsEditting(product.id)
+    }
     
     return (
         <div className="table-rows">
@@ -13,13 +21,13 @@ function ProductRow({ product }) {
                 {product.price}$
             </div>
             <div className="table-cell">
-                <img src={product.image} width="50%" height="38px" alt=""/>
+                <img src={product.image} width="50px" height="50px" alt=""/>
             </div>
             <div className="table-cell">
-                <button className="btn">
+                <button className="btn" onClick={handleEdit}>
                     Edit
                 </button>
-                <button className="btn">
+                <button className="btn" onClick={handleDelete}>
                     Delete
                 </button>
             </div>        
