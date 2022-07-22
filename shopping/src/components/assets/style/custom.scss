@@ -4,4 +4,10 @@ $primary: black !default;
     object-fit: contain;
 }
 
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 @import 'node_modules/bootstrap/scss/bootstrap';

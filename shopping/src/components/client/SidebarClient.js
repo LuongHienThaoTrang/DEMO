@@ -2,7 +2,7 @@ import { ListGroup, ListGroupItem } from "reactstrap"
 
 function SidebarClient() {
     return (
-        <ListGroup fluid>
+        <ListGroup fluid="true">
             <ListGroupItem>Cras justo odio</ListGroupItem>
             <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
             <ListGroupItem>Morbi leo risus</ListGroupItem>

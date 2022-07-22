@@ -1,14 +1,21 @@
 import { Collapse, Container, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarText, NavbarToggler, NavItem, NavLink, UncontrolledDropdown } from 'reactstrap'
+import { Link } from 'react-router-dom';
 
 function NavbarClient() {
 
-    const toggle = false;
+    const toggle = () => {
+        return false;
+    }
     const isOpen = false;
 
     return (
         <Container fluid={true}>
             <Navbar color="light" light expand="md">
-                <NavbarBrand href="/">reactstrap</NavbarBrand>
+                <NavbarBrand href="/">
+                    <Link to="/admin">
+                        ADMIN
+                    </Link>
+                </NavbarBrand>
                 <NavbarToggler onClick={toggle} />
                 <Collapse isOpen={isOpen} navbar>
                 <Nav className="me-auto" navbar>
@@ -22,7 +29,7 @@ function NavbarClient() {
                     <DropdownToggle nav caret>
                         Options
                     </DropdownToggle>
-                    <DropdownMenu right>
+                    <DropdownMenu end>
                         <DropdownItem>
                         Option 1
                         </DropdownItem>

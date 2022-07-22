@@ -1,5 +1,9 @@
 @import './variables';
 
+a {
+    text-decoration: none;
+}
+
 .color {
     background-color: $primaryColor;
 }
@@ -107,4 +111,14 @@
     justify-content: center;
     align-items: center;
     margin-top: 64px;
+}
+
+.login-page {
+    min-height: 100vh;
+    background-color: lightblue;
+
+    .login-modal {
+        width: 40%;
+        padding: 20px;
+    }
 }
