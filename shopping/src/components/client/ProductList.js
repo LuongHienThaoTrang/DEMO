@@ -27,10 +27,15 @@ class ProductList extends React.Component {
     render() {
         return (
             <Row>
-                {this.state.loading && <Spinner animation="border" color="info" />}
+                {this.state.loading && 
+                    <div className="loading d-flex justify-content-center align-items-center">
+                        <Spinner animation="border" color="primary" />
+                    </div>
+                }
                 {this.state.products.map((product, index) => (
                     <ProductItem 
                         key={index}
+                        id={product.id}
                         name={product.name}
                         price={product.price}
                         image={product.image}

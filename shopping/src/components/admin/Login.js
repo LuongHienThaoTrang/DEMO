@@ -4,7 +4,7 @@ import { Button, Card, Form, FormGroup, Input, Label } from 'reactstrap';
 export default class Login extends Component {
     render() {
         return (
-            <div class="center login-page">
+            <div className="center login-page">
                 <Card className="login-modal">
                     <Form>
                         <FormGroup>

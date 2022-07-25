@@ -1,0 +1,35 @@
+.wrapperCommonQuantityInput {
+    margin: 0 14px 14px;
+    .quantity-input {
+        width: 150px;
+        user-select: none;
+        & > div {
+            padding: 20px;
+            height: 50px;
+            width: 50px;
+            border: 1px solid #d2d2d2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .minus {
+            border-radius: 100px 0 0 100px;
+            font-weight: bold;
+            cursor: pointer;
+            &:hover {
+                background-color: #d2d2d2;
+            }
+        }
+        .quantity {
+    
+        }
+        .plus {
+            border-radius: 0 100px 100px 0;
+            font-weight: bold;
+            cursor: pointer;
+            &:hover {
+                background-color: #d2d2d2;
+            }
+        }
+    }
+}

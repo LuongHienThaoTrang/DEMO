@@ -91,7 +91,11 @@ class MainContent extends React.Component {
         return (
             <>
             <main>
-                {this.state.loading && <Spinner animation="border" color="info" />}
+                {this.state.loading && 
+                    <div className="d-flex justify-content-center align-items-center">
+                        <Spinner animation="border" color="primary" />
+                    </div>
+                }
                 <ContentHeader onToggleModal={this.toggleModal} onAddProduct={this.addProduct} /> 
                 <div className="content-table">
                     <div className="table-headers">

@@ -5,8 +5,6 @@ import SidebarClient from './SidebarClient';
 
 function AllProducts() {
 
-    
-
     return (
         <>
             <NavbarClient />
