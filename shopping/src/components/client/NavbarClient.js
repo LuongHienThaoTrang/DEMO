@@ -1,7 +1,9 @@
-import { Collapse, Container, DropdownItem, DropdownMenu, DropdownToggle, Nav, Navbar, NavbarBrand, NavbarText, NavbarToggler, NavItem, NavLink, UncontrolledDropdown } from 'reactstrap'
-import { Link } from 'react-router-dom';
+import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarText, NavbarToggler, NavItem } from 'reactstrap'
+import { NavLink } from 'react-router-dom';
+import CustomizedBadges from '../assets/icons/cart-shopping-solid';
+import { connect } from 'react-redux';
 
-function NavbarClient() {
+function NavbarClient({ cart }) {
 
     const toggle = () => {
         return false;
@@ -11,43 +13,34 @@ function NavbarClient() {
     return (
         <Container fluid={true}>
             <Navbar color="light" light expand="md">
-                <NavbarBrand href="/">
-                    <Link to="/admin">
-                        ADMIN
-                    </Link>
+                <NavbarBrand>
+                    <NavLink to="/">
+                        LOGO
+                    </NavLink>
                 </NavbarBrand>
                 <NavbarToggler onClick={toggle} />
-                <Collapse isOpen={isOpen} navbar>
+                <Collapse isOpen={isOpen} navbar style={{ lineHeight: '40px' }}>
                 <Nav className="me-auto" navbar>
-                    <NavItem>
-                    <NavLink href="/components/">Components</NavLink>
+                    <NavItem style={{ marginRight: '16px' }}>
+                        <NavLink to="/products/">Products</NavLink>
                     </NavItem>
                     <NavItem>
-                    <NavLink href="https://github.com/reactstrap/reactstrap">GitHub</NavLink>
+                        <NavLink to="/cart">Cart</NavLink>
                     </NavItem>
-                    <UncontrolledDropdown nav inNavbar>
-                    <DropdownToggle nav caret>
-                        Options
-                    </DropdownToggle>
-                    <DropdownMenu end>
-                        <DropdownItem>
-                        Option 1
-                        </DropdownItem>
-                        <DropdownItem>
-                        Option 2
-                        </DropdownItem>
-                        <DropdownItem divider />
-                        <DropdownItem>
-                        Reset
-                        </DropdownItem>
-                    </DropdownMenu>
-                    </UncontrolledDropdown>
                 </Nav>
-                <NavbarText>Simple Text</NavbarText>
+                <NavbarText style={{ marginRight: '8px', padding: '0' }}>
+                    <CustomizedBadges />
+                </NavbarText>
                 </Collapse>
             </Navbar>
         </Container>
     )
 }
 
-export default NavbarClient
+const mapStateToProps = (state) => {
+    return {
+        cart: state.cart
+    }
+}
+
+export default connect(mapStateToProps)(NavbarClient)

@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useParams } from "react-router-dom";
 import { Button, Card, Col, Container, Row, Spinner } from "reactstrap";
 import ImageContainer from "./ImageContainer";
-import NavbarClient from './NavbarClient';
 import CommonQuantityInput from './CommonQuantityInput';
 
 function withParams(Component) {
@@ -36,10 +35,19 @@ class ProductDetail extends React.Component {
             })
     }
 
-    handleChangeQuantity = data => {
+    handleChangeQuantity = (data, operator = false) => {
+        // Khi người dùng không nhập vào input
+        if (operator) {
+            console.log('123')
+            return this.setState({
+                quantity: this.state.quantity + data 
+            })
+        } 
+        // Input do Người dùng nhập
         this.setState({
-            quantity: this.state.quantity + data 
+            quantity: data
         })
+        
     }
 
     items = [
@@ -52,7 +60,6 @@ class ProductDetail extends React.Component {
         const { name, price, image } = this.state.productDetail
         return (
             <div>
-                <NavbarClient />
                 {this.state.loading === false ? <Container className="my-5">
                     <Row>
                         <Col md={3}>

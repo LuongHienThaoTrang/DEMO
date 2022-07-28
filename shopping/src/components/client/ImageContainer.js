@@ -16,12 +16,12 @@ class ImageContainer extends Component {
 
     handleSelect = (index) => {
         var imgs = document.querySelectorAll('.img')
-        var imgActive = document.querySelector('.img.active')
+        var imgActive = document.querySelector('.img.img-active')
         if (!imgActive) {
-            imgs[index].classList.add('active')
+            imgs[index].classList.add('img-active')
         } else {
-            imgActive.classList.remove('active')
-            imgs[index].classList.add('active')
+            imgActive.classList.remove('img-active')
+            imgs[index].classList.add('img-active')
         }
 
         this.setState({

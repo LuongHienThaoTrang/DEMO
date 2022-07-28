@@ -1,0 +1,44 @@
+.wrapperCommonQuantityInput {
+  margin: 0 14px 14px;
+}
+.wrapperCommonQuantityInput .quantity-input {
+  width: 150px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+.wrapperCommonQuantityInput .quantity-input > div {
+  padding: 20px;
+  height: 50px;
+  width: 50px;
+  border: 1px solid #d2d2d2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.wrapperCommonQuantityInput .quantity-input .minus {
+  border-radius: 100px 0 0 100px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.wrapperCommonQuantityInput .quantity-input .minus:hover {
+  background-color: #d2d2d2;
+}
+.wrapperCommonQuantityInput .quantity-input .quantity input {
+  width: 50px;
+  height: 50px;
+  text-align: center;
+  border: 1px solid #d2d2d2;
+}
+.wrapperCommonQuantityInput .quantity-input .quantity input:focus {
+  outline: none;
+}
+.wrapperCommonQuantityInput .quantity-input .plus {
+  border-radius: 0 100px 100px 0;
+  font-weight: bold;
+  cursor: pointer;
+}
+.wrapperCommonQuantityInput .quantity-input .plus:hover {
+  background-color: #d2d2d2;
+}/*# sourceMappingURL=common-input.css.map */

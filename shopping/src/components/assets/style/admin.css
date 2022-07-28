@@ -1,3 +1,7 @@
+a {
+  text-decoration: none;
+}
+
 .color {
   background-color: red;
 }
@@ -73,6 +77,9 @@
 .navbar button svg {
   width: 20px;
 }
+.navbar svg {
+  width: 30px;
+}
 
 .content-header {
   display: flex;
@@ -105,4 +112,32 @@
   justify-content: center;
   align-items: center;
   margin-top: 64px;
+}
+
+.login-page {
+  min-height: 100vh;
+  background-color: lightblue;
+}
+.login-page .login-modal {
+  width: 40%;
+  padding: 20px;
+}
+
+.img-productDetail {
+  width: 100%;
+  border: 1px solid #d2d2d2;
+  border-radius: 5px;
+}
+
+.img-active {
+  opacity: 1;
+  border: 1px solid lightseagreen;
+}
+
+.loading {
+  height: 50vh;
+}
+
+.active {
+  font-weight: bold;
 }/*# sourceMappingURL=admin.css.map */

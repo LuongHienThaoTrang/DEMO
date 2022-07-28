@@ -1,5 +1,4 @@
 import { Col, Container, Pagination, PaginationItem, PaginationLink, Row } from 'reactstrap'
-import NavbarClient from './NavbarClient';
 import ProductList from './ProductList';
 import SidebarClient from './SidebarClient';
 
@@ -7,7 +6,6 @@ function AllProducts() {
 
     return (
         <>
-            <NavbarClient />
             <Container>
                 <Row className="mt-5">
                     <Col md={3}>
