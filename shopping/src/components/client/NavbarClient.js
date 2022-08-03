@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import CustomizedBadges from '../assets/icons/cart-shopping-solid';
 import { connect } from 'react-redux';
 
-function NavbarClient({ cart }) {
+function NavbarClient({ cart, cartTotal }) {
 
     const toggle = () => {
         return false;
@@ -29,7 +29,7 @@ function NavbarClient({ cart }) {
                     </NavItem>
                 </Nav>
                 <NavbarText style={{ marginRight: '8px', padding: '0' }}>
-                    <CustomizedBadges />
+                    <CustomizedBadges total={cartTotal} />
                 </NavbarText>
                 </Collapse>
             </Navbar>
@@ -38,8 +38,13 @@ function NavbarClient({ cart }) {
 }
 
 const mapStateToProps = (state) => {
+    // 1. ở navbarClient nó lấy total products
+    // 2. Còn ở cart.js nó lấy props mới là nguyên mảng giỏ hàng
+    // Tính tổng số lượng sản phẩm trong giỏ hàng
+    const total = state.cart.reduce((total, product) => total + product.quantity, 0)
     return {
-        cart: state.cart
+        // return quantity
+        cartTotal: total
     }
 }
 

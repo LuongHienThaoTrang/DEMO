@@ -2,7 +2,7 @@ import axios from 'axios'
 import React from 'react'
 import { Row, Spinner } from "reactstrap"
 import ProductItem from "./ProductItem"
-
+import { connect } from 'react-redux'
 
 class ProductList extends React.Component {
     state = {
@@ -39,6 +39,7 @@ class ProductList extends React.Component {
                         name={product.name}
                         price={product.price}
                         image={product.image}
+                        addProduct={this.props.addProduct}
                     />
                 ))}
             </Row>
@@ -46,4 +47,21 @@ class ProductList extends React.Component {
     }
 }
 
-export default ProductList
+// Lấy phương thức đispatch dùng mapDispatchToProps 
+const mapDispatchToProps = (dispatch) => {
+    // store.dispatch === dispatch
+    // State thay đổi thì giao diện thay đổi => mà state nó k phải nằm 1 chỗ mà nó nằm ngay trên store thì bất kì componnent mà connect với nó thì sẽ lấy được
+    return {
+        addProduct: (product, quantity) => {
+            dispatch({
+                type: 'ADD_TO_CART', 
+                payload: {
+                    ...product,
+                    quantity
+                }
+            })
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(ProductList)

@@ -7,19 +7,21 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const StyledBadge = styled(Badge)(({ theme }) => ({
   '& .MuiBadge-badge': {
-    right: -2,
-    top: 6,
-    border: `2px solid ${theme.palette.background.paper}`,
-    backgroundColor: 'orangered'
-
-  },
+    right: 14,
+    top: 4,
+    border: `1px solid ${theme.palette.background.paper}`,
+    backgroundColor: 'orangered',
+    borderRadius: '46%',
+    minWidth: '24px',
+    height: '18px'
+  }
 }));
 
-export default function CustomizedBadges() {
+export default function CustomizedBadges({ total }) {
   return (
-    <IconButton aria-label="cart" style={{ width: '30px', height: '30px', backgroundColor: 'transparent', color: 'black'}} >
-      <StyledBadge badgeContent={4} color="secondary">
-        <ShoppingCartIcon />
+    <IconButton aria-label="cart" style={{ width: '30px', height: '30px', backgroundColor: 'transparent', color: 'black' }} >
+      <StyledBadge badgeContent={total} color="secondary" >
+        <ShoppingCartIcon style={{ width: '50px' }} />
       </StyledBadge>
     </IconButton>
   );

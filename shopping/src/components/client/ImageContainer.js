@@ -15,7 +15,8 @@ class ImageContainer extends Component {
     
 
     handleSelect = (index) => {
-        var imgs = document.querySelectorAll('.img')
+        
+        var imgs = document.querySelectorAll('.container-fluid .img')
         var imgActive = document.querySelector('.img.img-active')
         if (!imgActive) {
             imgs[index].classList.add('img-active')
@@ -37,14 +38,14 @@ class ImageContainer extends Component {
         return (
             <div>
                 <Container fluid>
-                    <Row className="mb-3">
+                    <Row>
                         <img className="img-productDetail" src={(typeof this.state.items !== 'string') ? this.state.items[this.state.selected] : this.state.items} alt="" />
                     </Row>
-                    {(typeof this.state.items) !== 'string' && <Row>
+                    {(typeof this.state.items) !== 'string' && <Row className="mt-3">
                         {this.state.items.map((item, index) => (
-                            <Col md={4} key={index}>
+                            <Col md={4} key={index}>    
                                 <div className="wrapper">
-                                    <img className="img-productDetail img" onClick={() => this.handleSelect(index)} src={item} alt="" />
+                                    <img className="img-productDetail img"  onClick={() => this.handleSelect(index)} src={item} alt="" />
                                 </div>
                             </Col>
                         ))}

@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { Button, Card, Col, Container, Row, Spinner } from "reactstrap";
 import ImageContainer from "./ImageContainer";
 import CommonQuantityInput from './CommonQuantityInput';
+import { connect } from 'react-redux'
+
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -12,7 +14,7 @@ function withParams(Component) {
 
 class ProductDetail extends React.Component {
     state = {
-        quantity: 0,
+        quantity: 1,
         productDetail: {
             id: null,
             name: '', 
@@ -38,7 +40,6 @@ class ProductDetail extends React.Component {
     handleChangeQuantity = (data, operator = false) => {
         // Khi người dùng không nhập vào input
         if (operator) {
-            console.log('123')
             return this.setState({
                 quantity: this.state.quantity + data 
             })
@@ -47,7 +48,13 @@ class ProductDetail extends React.Component {
         this.setState({
             quantity: data
         })
-        
+    }
+
+    handleAddToCart = () => {
+        this.props.addProduct({
+            ...this.state.productDetail,
+            images: this.state.productDetail.image[0]
+        }, this.state.quantity)
     }
 
     items = [
@@ -71,7 +78,7 @@ class ProductDetail extends React.Component {
                                 <h3>{name}</h3>
                                 <h5 className="text-warning">Price: {price}$</h5>
                                 <CommonQuantityInput value={this.state.quantity} onChange={this.handleChangeQuantity} />
-                                <Button color="primary" outline>Submit</Button>
+                                <Button color="primary" outline onClick={this.handleAddToCart} style={{ marginBottom: '5px' }}>Add to cart</Button>
                             </Card>
                         </Col>
                     </Row>
@@ -86,7 +93,21 @@ class ProductDetail extends React.Component {
     }
 }
 
-export default withParams(ProductDetail)
+const mapDispatchToProps = dispatch => {
+    return {
+        addProduct: (product, quantity) => {
+            dispatch({
+                type: 'ADD_TO_CART', 
+                payload: {
+                    ...product,
+                    quantity
+                }
+            })
+        }
+    }
+}
+
+export default connect(null, mapDispatchToProps)(withParams(ProductDetail))
 
 
 
