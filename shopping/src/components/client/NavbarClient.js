@@ -1,25 +1,36 @@
-import { Collapse, Container, Nav, Navbar, NavbarBrand, NavbarText, NavbarToggler, NavItem } from 'reactstrap'
+import { Collapse, Nav, Navbar, NavbarBrand, NavbarText, NavbarToggler, NavItem, Container } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
 import CustomizedBadges from '../assets/icons/cart-shopping-solid';
 import { connect } from 'react-redux';
+import { useState, useEffect } from 'react'
 
 function NavbarClient({ cart, cartTotal }) {
 
-    const toggle = () => {
-        return false;
-    }
-    const isOpen = false;
+    // const toggle = () => {
+    //     return !isOpen
+    // }
+    // const isOpen = true;
 
+    const [ open, setOpen ] = useState(false);
+
+    const toggleNavbarClient = () => {
+        setOpen(!open);
+    }
+
+
+    const isOpen = true
+
+    
     return (
-        <Container fluid={true}>
+        <Container fluid={true} >
             <Navbar color="light" light expand="md">
                 <NavbarBrand>
                     <NavLink to="/">
                         LOGO
                     </NavLink>
                 </NavbarBrand>
-                <NavbarToggler onClick={toggle} />
-                <Collapse isOpen={isOpen} navbar style={{ lineHeight: '40px' }}>
+                <NavbarToggler onClick={toggleNavbarClient} />
+                <Collapse open={isOpen} navbar style={{ lineHeight: '40px' }}>
                 <Nav className="me-auto" navbar>
                     <NavItem style={{ marginRight: '16px' }}>
                         <NavLink to="/products/">Products</NavLink>
@@ -27,13 +38,16 @@ function NavbarClient({ cart, cartTotal }) {
                     <NavItem>
                         <NavLink to="/cart">Cart</NavLink>
                     </NavItem>
+                    <NavItem style={{ marginLeft: '16px' }}>
+                        <NavLink to="/admin">Admin</NavLink>
+                    </NavItem>
                 </Nav>
-                <NavbarText style={{ marginRight: '8px', padding: '0' }}>
+                <NavbarText style={{ marginRight: '4px', padding: '0' }}>
                     <CustomizedBadges total={cartTotal} />
                 </NavbarText>
                 </Collapse>
             </Navbar>
-        </Container>
+        </Container>       
     )
 }
 

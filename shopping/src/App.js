@@ -78,6 +78,12 @@ function App() {
           ...state,
           cart: newCart
         }
+      
+      case 'CLEAR_CART':
+        return {
+          ...state,
+          cart: []
+        }
 
       default:
         return state
@@ -105,15 +111,23 @@ function App() {
         <div className="app">
           {/* Admin: localhost:3000/admin */}
           {/* Client: localhost:3000/products */}
-          <StoreNavbarClient />
           <Routes>
-            <Route path='/' element={<Home />}/>
-            <Route path='/cart' element={<StoreCart />}/>
+            <Route path='/' element={<><StoreNavbarClient /> <Home /></>}/>
+
+            <Route path='/cart' element={<><StoreNavbarClient /> <StoreCart /></>}/>
+
+            {/* ADMIN không để navbar */}
+            {/* Khi chưa login thì không dược vào trang trong */}
+            {/* Khi đã login rồi thì không được vào trang đăng nhập */}
+            {/* Khi login thành công nó trả về JWT Token */}
             <Route path='/admin/login' element={<StoreLogin />}/>
             <Route path='/admin' element={<StoreShoppingAdmin />}/>
+
             {/* Tạo params khai báo biến :id có key là id (id=) */}
-            <Route path='/products/:id' element={<ProductDetail />} />
-            <Route path='/products' element={<StoreAllProducts />}/>
+            <Route path='/products/:id' element={<><StoreNavbarClient /> <ProductDetail /></>}/>
+
+            <Route path='/products' element={<><StoreNavbarClient /> <StoreAllProducts /></>}/>
+
           </Routes>
         </div>
       </BrowserRouter>

@@ -21,7 +21,8 @@ function ProductRow({ product, onDeleteProduct, onUpdateIsEditting }) {
                 {product.price}$
             </div>
             <div className="table-cell">
-                <img src={product.image} width="50px" height="50px" alt=""/>
+            {/* Thêm số 0 là do admin thêm sp 1 mảng. Có thể xóa 0, nếu k muốn khi admin thêm sp hiển thị thêm 3 ảnh nhỏ dưới */}
+                <img src={product.image} className="img-productRow" alt="" />
             </div>
             <div className="table-cell">
                 <button className="btn" onClick={handleEdit}>

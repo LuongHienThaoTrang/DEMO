@@ -15,12 +15,12 @@ const StyledBadge = styled(Badge)(({ theme }) => ({
     minWidth: '24px',
     height: '18px'
   }
-}));
+}))
 
 export default function CustomizedBadges({ total }) {
   return (
     <IconButton aria-label="cart" style={{ width: '30px', height: '30px', backgroundColor: 'transparent', color: 'black' }} >
-      <StyledBadge badgeContent={total} color="secondary" >
+      <StyledBadge  badgeContent={total ? total : '0'} color="secondary" >
         <ShoppingCartIcon style={{ width: '50px' }} />
       </StyledBadge>
     </IconButton>

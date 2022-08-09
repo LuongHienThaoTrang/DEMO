@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { Button, Card, Col, Container, Row } from 'reactstrap';
+import { Button, Card, Col, Container, Row, Spinner } from 'reactstrap';
 import ImageContainer from './ImageContainer';
 import CommonQuantityInput from './CommonQuantityInput';
 import { connect } from 'react-redux'
 import Swal from 'sweetalert2';
+import axios from 'axios';
+
 class CartProduct extends React.Component {
     state = {
-        quantity: 0
+        quantity: 1
     }
 
     componentDidMount() {
@@ -25,13 +27,14 @@ class CartProduct extends React.Component {
             // Khi nó về 0: state hiện tại là 1 và nó bấm nút -1
             if (this.state.quantity === 1 && data === -1) {
                 // delete   
-                this.handleDelete()
+                this.handleDelete() 
             }
             return this.setState({
                 quantity: this.state.quantity + data 
             }, () => {
                 this.props.updateCart(this.props.product.cartId, this.state.quantity)
             })
+
         } 
 
         // if là operator do người dùng nhập
@@ -72,20 +75,32 @@ class CartProduct extends React.Component {
                 this.props.deleteCart(this.props.product.cartId)
                 swalWithBootstrapButtons.fire(
                     {
+                        icon: 'success',
                         title: 'Deleted!',
+                        text: 'Your file has been deleted.',
                         timer: 2000,
                         timerProgressBar: true,
-                        
                     }
                 )
             } else if (
                 /* Read more about handling dismissals below */
                 result.dismiss === Swal.DismissReason.cancel
-            ) {
+                ) {
+                // Không xóa sp thì cho quantity mặc định 1 trong cart
+                this.setState({
+                    quantity: this.state.quantity + 1 
+                }, () => {
+                    // Sau khi không xóa ta updated lại cart dùng callback trong setState
+                    this.props.updateCart(this.props.product.cartId, this.state.quantity)
+                })
                 swalWithBootstrapButtons.fire(
-                    'Cancelled',
-                    'Your imaginary file is safe :)',
-                    'error'
+                    {
+                        icon: 'error',
+                        title: 'Cancelled',
+                        text: 'Your imaginary file is safe :)',
+                        timer: 2000,
+                        timerProgressBar: true,
+                    }
                 )
             }
         })
@@ -115,36 +130,184 @@ class CartProduct extends React.Component {
     }
 }
 
+export class CheckoutModal extends React.Component {
+    state = {
+        fullName: '',
+        phone: '',
+        address: '',
+        loading: undefined
+    }
+
+    componentDidMount() {
+        this.setState({
+            loading: false
+        })
+    }
+
+    handleClose = () => {
+        this.props.toggleModal()
+    }
+
+    handleChange = e => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    // Khi submit form sẽ gửi hết dữ liệu trong state lên thông qua key value
+    handleSubmit = e => {
+        e.preventDefault()
+        
+        this.setState({
+            loading: true
+        })
+
+        // Post thì nằm trong body
+        // Nếu không dùng post được vào file: auth-middleware.js thêm điều kiện ràng buộc method POST với cart
+        axios.post("http://localhost:9696/carts", {
+            // Thông tin người mua
+            ...this.state,
+            // Truyền thêm product khi thêm vào cart
+            cartProduct: [
+                ...this.props.cart
+            ],
+            // Truyền totalItem, totalPrice
+            totalItem: this.props.totalItem,
+            totalPrice: this.props.totalPrice
+        })
+            .then(response => {
+                this.setState({
+                    loading: false
+                })
+                
+                // Khi checkout thành công thì phải có phản hồi cho người dùng: Dùng sweetalert2
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Checkout successfully',
+                    text: 'Your file has been Checkout.',
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                })
+                .then(() => {
+                    // Sau đó ta dispatch 1 action: clearCart -> xóa hết all product trong cart
+                    this.props.clearCart()
+                    // Tắt modal
+                    this.handleClose()
+                }) 
+            })
+            .catch(error => {
+                this.setState({
+                    loading: false
+                })
+                // Khi checkout thất bại thì phải có phản hồi cho người dùng: Dùng sweetalert2
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Checkout unsuccessfully',
+                    text: 'Something went wrong',
+                    timer: 2000,
+                    timerProgressBar: true,   
+                    showConfirmButton: false
+                })
+                .then(() => {
+                    // Tắt modal
+                    this.handleClose()
+                }) 
+            })
+    }
+
+    render() {
+        const { fullName, phone, address } = this.state
+
+        return (
+            <div className="modal">
+                <div className="modal-content">
+                    <div className="modal-flex">
+                        <h3>Checkout</h3>
+                        {this.state.loading === false ? 
+                            <button onClick={this.handleClose} className="modal-close">X</button>
+                            :
+                            <Spinner animation="border" color="primary" />
+                        }
+                    </div>
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="form-group">
+                            <label className="mb-1">Full Name</label>
+                            <input type="text" className="form-control" name="fullName" placeholder="Full Name" value={fullName} onChange={this.handleChange} />
+                        </div>
+                        <div className="form-group mt-2">
+                            <label className="mb-1">Phone</label>
+                            <input type="number" className="form-control" name="phone" placeholder="Phone" value={phone} onChange={this.handleChange} />
+                        </div>
+                        <div className="form-group mt-2">
+                            <label className="mb-1">Address</label>
+                            <input type="text" className="form-control" name="address" placeholder="Address" value={address} onChange={this.handleChange} />
+                        </div>
+                       <button className="btn btn-outline-primary mt-3" style={{ width: '100%' }}>Checkout</button>
+                    </form>
+                </div>
+            </div>
+        )
+    }
+}
+
+
+
 class Cart extends Component {
+
+    state = {
+        open: false,
+    }
+
+    toggleModal = () => {
+        this.setState({
+            open: !this.state.open,
+        })
+    }
 
     render() {
         return (
             <div>
-                <Container className="my-5">
-                    <Row>
-                        <Col md={9}>
-                            {this.props.cart.length > 0 && this.props.cart.map(product => {
-                                return <CartProduct deleteCart={this.props.deleteCart} updateCart={this.props.updateCart} product={product} key={product.cartId} />
-                            })}
-                        </Col>
-                        <Col md={3}>
-                            {/* PRODUCT DETAIL {this.props.params.id} */}
-                            <Card className="p-3">
-                                <h3>Total items: 20</h3>
-                                <h4 className="text-warning">Total price: 200$</h4>
-                                <Button color="primary">Checkout</Button>
-                            </Card>
-                        </Col>
-                    </Row>
-                </Container>
+                <>
+                    <Container className="my-5">
+                        <Row>
+                            <Col md={9}>
+                                {this.props.cart.length > 0 && this.props.cart.map(product => {
+                                    return <CartProduct deleteCart={this.props.deleteCart} updateCart={this.props.updateCart} product={product} key={product.cartId} />
+                                })}
+                            </Col>
+                            <Col md={3}>
+                                {/* PRODUCT DETAIL {this.props.params.id} */}
+                                <Card className="p-3">
+                                    <h3>Total items: {this.props.totalItem}</h3>
+                                    <h4 className="text-warning">Total price: {this.props.totalPrice}$</h4>
+                                    <Button color="primary" onClick={this.toggleModal}>Checkout</Button>
+                                </Card>
+                            </Col>
+                        </Row>
+                    </Container>
+                    {this.state.open ? <CheckoutModal 
+                        totalItem={this.props.totalItem}
+                        totalPrice={this.props.totalPrice}
+                        cart={this.props.cart} 
+                        toggleModal={this.toggleModal} 
+                        clearCart={this.props.clearCart} 
+                        /> 
+                        : ''
+                    }
+                </>
             </div>
         );
     }
 }
 
 const mapStateToProps = (state) => {
+    const totalItem = state.cart.reduce((totalItem, product) => totalItem + product.quantity, 0)
+    const totalPrice = state.cart.reduce((totalPrice, product) => totalPrice + (product.price * product.quantity), 0)
     return {
-        cart: state.cart
+        cart: state.cart,
+        totalItem,
+        totalPrice
     }
 }
 
@@ -159,10 +322,17 @@ const mapDispatchToProps = dispatch => {
                 }
             })
         },
+
         deleteCart: cartId => {
             dispatch({
                 type: 'DELETE_CART',
                 payload: cartId
+            })
+        },
+
+        clearCart: () => {
+            dispatch({
+                type: 'CLEAR_CART'
             })
         }
     }

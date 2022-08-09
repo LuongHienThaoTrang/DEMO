@@ -15,6 +15,7 @@ class ProductList extends React.Component {
         this.setState({
             loading: true
         })
+        // Get thì gửi trên query params
         axios.get("http://localhost:9696/products")
             .then(response => {
                 this.setState({

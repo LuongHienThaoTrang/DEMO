@@ -31,22 +31,31 @@ a {
     display: flex;
     justify-content: center;
     align-items: center;
+    &-flex {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 8px;
+        h3 {
+            font-size: 2rem;
+            margin: 0;
+        }
+    }
     &-content {
         width: 50%;
-        min-height: 50%;
+        max-height: 400px;
         background-color: $whiteColor;
         padding: 16px;
+        overflow: hidden;
         .modal-close {
-            position: absolute;
-            top: 0px;
-            right: 0px;
             border: none;
             background-color: $whiteColor;
-            padding: 6px 8px;
             &:hover {
-                color: $whiteColor;
-                background-color: rgb(120, 120, 120);
+                opacity: 0.7;
             }
+        }
+        button {
+            font-size: 1.2rem;
         }
     }
 }
@@ -66,7 +75,7 @@ a {
     background-color: $sideBarColor;
 }
 
-.navbar {
+.navbar, .navbar1 {
     box-shadow: $shadowOne;
     height: 40px;
     padding: 0 12px;
@@ -107,6 +116,13 @@ a {
 .table-rows {
     border-bottom: 1px solid #d2d2d2;
     padding: 20px 0;
+}
+
+.img-productRow {
+    object-fit: contain;
+    width: 70px;
+    height: 70px;
+    border: 0.2px solid #d2d2d2;
 }
 
 .no-result {
@@ -152,3 +168,11 @@ a {
     font-weight: bold;
 }
 
+.cart-title-link {
+    line-height: 24px;
+    max-height: 48px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+}
